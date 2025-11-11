@@ -2,20 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Character Counter</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Fixed Calculator</title>
 </head>
 <body>
-  <div class="container">
-    <h2>Character Counter</h2>
-    <form action="http://localhost/dt/process.php" method="POST">
-      <textarea id="textInput" name="textInput" rows="8" placeholder="Type something..."></textarea>
-      <p id="charCount">Characters: 0</p>
-      <button type="submit">Submit</button>
-    </form>
-  </div>
+  <h2>🧮 Simple Calculator</h2>
+  
+  <input id="num1" placeholder="Enter first number">
+  <input id="num2" placeholder="Enter second number">
+  
+  <select id="operator">
+    <option value="+">+</option>
+    <option value="-">-</option>
+    <option value="*">*</option>
+    <option value="/">/</option>
+  </select>
+  
+  <button onclick="calculate()">Calculate</button>
+  <p id="result"></p>
 
-  <script src="script.js"></script>
+  <script>
+    function calculate() {
+      const num1 = parseFloat(document.getElementById("num1").value);
+      const num2 = parseFloat(document.getElementById("num2").value);
+      const operator = document.getElementById("operator").value;
+      let result;
+
+      try {
+        if (isNaN(num1) || isNaN(num2)) {
+          throw new Error("Please enter both numbers");
+        }
+
+        if (operator === "+") {
+          result = num1 + num2;
+        } else if (operator === "-") {
+          result = num1 - num2;
+        } else if (operator === "*") {
+          result = num1 * num2;
+        } else if (operator === "/") {
+          if (num2 === 0) throw new Error("Division by zero!");
+          result = num1 / num2;
+        } else {
+          throw new Error("Invalid operator");
+        }
+
+        document.getElementById("result").innerText = "Result: " + result;
+      } catch (err) {
+        document.getElementById("result").innerText = "Error: " + err.message;
+      }
+    }
+  </script>
 </body>
 </html>

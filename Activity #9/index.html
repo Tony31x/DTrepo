@@ -3,25 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Day 7</title>
+    <title>Dynamic To-Do List</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h2>Hands-On Activity #9</h2>
-
-    <p id="textParagraph">Choose a color below to change my color.</p>
-
-    <div id="infoBox">Waiting for color selection...</div>
-
-    <img id="imageElement" src="image/gorilla1.jpg" alt="Original Image">
-
-    <br><br>
-
-    <label for="colorPicker">Select a text color:</label>
-    <input type="color" id="colorPicker" value="#0000ff">
-
-    <br><br>
-    <button id="bgButton">Change Background Color</button>
+    <div class="todo-container">
+        <h1>My To-Do List</h1>
+        <div class="input-group">
+            <input type="text" id="taskInput" placeholder="Enter a new task...">
+            <button id="addBtn">Add</button>
+        </div>
+        <ul id="taskList"></ul>
+    </div>
 
     <script src="script.js"></script>
 </body>

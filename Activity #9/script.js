@@ -1,44 +1,40 @@
-const colorPicker = document.getElementById("colorPicker");
-const paragraph = document.getElementById("textParagraph");
-const infoBox = document.getElementById("infoBox");
-const image = document.getElementById("imageElement");
-const bgButton = document.getElementById("bgButton");
+// Select elements
+const taskInput = document.getElementById('taskInput');
+const addBtn = document.getElementById('addBtn');
+const taskList = document.getElementById('taskList');
 
-// Handle color picker changes
-colorPicker.addEventListener("input", function() {
-    const selectedColor = colorPicker.value;
-
-    // Change paragraph color
-    paragraph.style.color = selectedColor;
-    paragraph.textContent = `The paragraph color is now ${selectedColor}.`;
-
-    // Update the div text and background
-    infoBox.textContent = `Color ${selectedColor} has been selected.`;
-    infoBox.style.backgroundColor = selectedColor + "33"; // light transparent background
-
-    // Replace the image based on selected color
-    if (selectedColor === "#ff0000") {
-        image.src = "image/gorilla2.jpg";
-    } else if (selectedColor === "#00ff00ff") {
-        image.src = "image/gorilla3.jpg";
-    } else {
-        image.src = "image/gorilla4.jpg";
-    }
+// Add task function
+addBtn.addEventListener('click', addTask);
+taskInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') addTask();
 });
 
-// Handle background color change
-bgButton.addEventListener("click", function() {
-    const randomColor = getRandomColor();
-    document.body.style.backgroundColor = randomColor;
-    infoBox.textContent = `Background color changed to ${randomColor}.`;
-});
+function addTask() {
+    const taskText = taskInput.value.trim();
+    if (taskText === '') return alert('Please enter a task.');
 
-// Generate random hex color
-function getRandomColor() {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+    // Create list item
+    const li = document.createElement('li');
+    li.textContent = taskText;
+
+    // Add toggle functionality
+    li.addEventListener('click', () => {
+        li.classList.toggle('completed');
+    });
+
+    // Create delete button
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = '×';
+    deleteBtn.classList.add('delete-btn');
+    deleteBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent marking as completed
+        li.remove();
+    });
+
+    // Append delete button to list item
+    li.appendChild(deleteBtn);
+    taskList.appendChild(li);
+
+    // Clear input
+    taskInput.value = '';
 }
